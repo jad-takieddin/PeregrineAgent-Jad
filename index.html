@@ -1,0 +1,1079 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Peregrine License Agent - Intelligence Platform</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 100%);
+            color: #ffffff;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        /* Header */
+        .header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 40px;
+            padding: 20px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .logo-icon {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, #ff6b35 0%, #ff8c42 100%);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 20px;
+        }
+
+        .logo-text {
+            font-size: 20px;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+        }
+
+        .logo-text .peregrine {
+            color: #ff6b35;
+        }
+
+        .powered-by {
+            font-size: 12px;
+            color: #999;
+            text-align: right;
+        }
+
+        /* Main Grid */
+        .main-grid {
+            display: grid;
+            grid-template-columns: 450px 1fr;
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+
+        /* Input Panel */
+        .input-panel {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 16px;
+            padding: 30px;
+            backdrop-filter: blur(10px);
+        }
+
+        .panel-title {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 24px;
+            color: #fff;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            font-size: 13px;
+            font-weight: 500;
+            color: #999;
+            margin-bottom: 8px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .required {
+            color: #ff6b35;
+        }
+
+        input[type="text"],
+        select {
+            width: 100%;
+            padding: 12px 16px;
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: 8px;
+            color: #fff;
+            font-size: 15px;
+            transition: all 0.3s ease;
+        }
+
+        input[type="text"]:focus,
+        select:focus {
+            outline: none;
+            border-color: #ff6b35;
+            background: rgba(255, 255, 255, 0.12);
+        }
+
+        select option {
+            background: #1a1a1a;
+            color: #fff;
+        }
+
+        .license-plate-input {
+            font-family: 'Courier New', monospace;
+            font-size: 18px;
+            font-weight: 600;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        .input-hint {
+            font-size: 12px;
+            color: #666;
+            margin-top: 6px;
+        }
+
+        .file-upload {
+            position: relative;
+            margin-top: 8px;
+        }
+
+        .file-upload input[type="file"] {
+            display: none;
+        }
+
+        .file-upload-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            padding: 12px 16px;
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px dashed rgba(255, 255, 255, 0.3);
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            color: #999;
+            font-size: 14px;
+        }
+
+        .file-upload-btn:hover {
+            border-color: #ff6b35;
+            background: rgba(255, 107, 53, 0.1);
+            color: #ff6b35;
+        }
+
+        .search-btn {
+            width: 100%;
+            padding: 16px;
+            background: linear-gradient(135deg, #ff6b35 0%, #ff8c42 100%);
+            border: none;
+            border-radius: 8px;
+            color: #fff;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 24px;
+            box-shadow: 0 4px 20px rgba(255, 107, 53, 0.3);
+        }
+
+        .search-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 30px rgba(255, 107, 53, 0.4);
+        }
+
+        .search-btn:active {
+            transform: translateY(0);
+        }
+
+        /* Recent Searches Dropdown */
+        .recent-searches {
+            margin-bottom: 24px;
+            padding-bottom: 24px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .recent-searches-label {
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: #999;
+            margin-bottom: 10px;
+            font-weight: 600;
+        }
+
+        .examples-dropdown {
+            width: 100%;
+            padding: 12px 16px;
+            background: rgba(255, 107, 53, 0.1);
+            border: 1px solid rgba(255, 107, 53, 0.3);
+            border-radius: 8px;
+            color: #ff6b35;
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 500;
+        }
+
+        .examples-dropdown:hover {
+            background: rgba(255, 107, 53, 0.15);
+            border-color: #ff6b35;
+        }
+
+        .examples-dropdown option {
+            background: #1a1a1a;
+            color: #fff;
+            padding: 10px;
+        }
+
+        /* Search Status Panel */
+        .status-panel {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 16px;
+            padding: 30px;
+            backdrop-filter: blur(10px);
+            display: none;
+        }
+
+        .status-panel.active {
+            display: block;
+        }
+
+        .searching-animation {
+            text-align: center;
+            padding: 40px 0;
+        }
+
+        .spinner {
+            width: 60px;
+            height: 60px;
+            border: 4px solid rgba(255, 255, 255, 0.1);
+            border-top-color: #ff6b35;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 24px;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        .status-text {
+            font-size: 18px;
+            color: #fff;
+            margin-bottom: 10px;
+            font-weight: 600;
+        }
+
+        .status-subtext {
+            font-size: 14px;
+            color: #999;
+            margin-bottom: 30px;
+        }
+
+        .agent-thinking {
+            background: rgba(255, 255, 255, 0.05);
+            border-left: 3px solid #ff6b35;
+            padding: 16px 20px;
+            margin: 20px 0;
+            border-radius: 4px;
+            text-align: left;
+        }
+
+        .thinking-step {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            margin-bottom: 12px;
+            opacity: 0;
+            animation: fadeInStep 0.5s forwards;
+        }
+
+        .thinking-step:last-child {
+            margin-bottom: 0;
+        }
+
+        @keyframes fadeInStep {
+            from {
+                opacity: 0;
+                transform: translateX(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        .thinking-icon {
+            font-size: 16px;
+            margin-top: 2px;
+        }
+
+        .thinking-text {
+            flex: 1;
+            font-size: 14px;
+            color: #ccc;
+            line-height: 1.5;
+        }
+
+        .thinking-text strong {
+            color: #ff6b35;
+            font-weight: 600;
+        }
+
+        .data-sources {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .data-source-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 16px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 8px;
+            opacity: 0.4;
+            transition: all 0.5s ease;
+        }
+
+        .data-source-item.active {
+            opacity: 1;
+            background: rgba(255, 107, 53, 0.1);
+            border: 1px solid rgba(255, 107, 53, 0.3);
+        }
+
+        .data-source-icon {
+            font-size: 20px;
+        }
+
+        .data-source-text {
+            font-size: 14px;
+            color: #ccc;
+        }
+
+        /* Results Panel */
+        .results-panel {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 16px;
+            padding: 30px;
+            backdrop-filter: blur(10px);
+            display: none;
+        }
+
+        .results-panel.active {
+            display: block;
+        }
+
+        .results-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 24px;
+            padding-bottom: 16px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .results-title {
+            font-size: 18px;
+            font-weight: 600;
+        }
+
+        .results-count {
+            font-size: 14px;
+            color: #999;
+        }
+
+        .match-cards {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .match-card {
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: 12px;
+            padding: 20px;
+            transition: all 0.3s ease;
+        }
+
+        .match-card:hover {
+            border-color: #ff6b35;
+            background: rgba(255, 255, 255, 0.12);
+            transform: translateX(4px);
+        }
+
+        .match-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 16px;
+        }
+
+        .match-plate {
+            font-family: 'Courier New', monospace;
+            font-size: 24px;
+            font-weight: 700;
+            letter-spacing: 3px;
+            color: #ff6b35;
+        }
+
+        .confidence-badge {
+            padding: 6px 12px;
+            background: rgba(255, 107, 53, 0.2);
+            border: 1px solid #ff6b35;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: 600;
+            color: #ff6b35;
+        }
+
+        .confidence-badge.high {
+            background: rgba(46, 213, 115, 0.2);
+            border-color: #2ed573;
+            color: #2ed573;
+        }
+
+        .confidence-badge.medium {
+            background: rgba(255, 159, 67, 0.2);
+            border-color: #ff9f43;
+            color: #ff9f43;
+        }
+
+        .vehicle-details {
+            display: flex;
+            gap: 20px;
+            margin-bottom: 16px;
+            font-size: 14px;
+            color: #ccc;
+        }
+
+        .vehicle-detail {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .ai-explanation {
+            background: rgba(255, 255, 255, 0.05);
+            border-left: 3px solid #ff6b35;
+            padding: 12px 16px;
+            border-radius: 4px;
+            margin-bottom: 16px;
+        }
+
+        .ai-label {
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: #ff6b35;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .ai-text {
+            font-size: 14px;
+            line-height: 1.6;
+            color: #ccc;
+        }
+
+        .match-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-top: 16px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .data-badges {
+            display: flex;
+            gap: 6px;
+            flex-wrap: wrap;
+        }
+
+        .badge {
+            padding: 4px 10px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 4px;
+            font-size: 11px;
+            color: #999;
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 8px;
+        }
+
+        .action-btn {
+            padding: 8px 16px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 6px;
+            background: transparent;
+            color: #ccc;
+            font-size: 13px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .action-btn:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .action-btn.flag:hover {
+            border-color: #ff9f43;
+            color: #ff9f43;
+            background: rgba(255, 159, 67, 0.1);
+        }
+
+        .action-btn.confirm:hover {
+            border-color: #2ed573;
+            color: #2ed573;
+            background: rgba(46, 213, 115, 0.1);
+        }
+
+        .action-btn.decline:hover {
+            border-color: #ff6348;
+            color: #ff6348;
+            background: rgba(255, 99, 72, 0.1);
+        }
+
+        .last-seen {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 16px;
+            padding: 10px 12px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 6px;
+            font-size: 13px;
+            color: #999;
+        }
+
+        .location-dot {
+            width: 8px;
+            height: 8px;
+            background: #ff6b35;
+            border-radius: 50%;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                opacity: 1;
+                transform: scale(1);
+            }
+            50% {
+                opacity: 0.5;
+                transform: scale(1.2);
+            }
+        }
+
+        /* Responsive */
+        @media (max-width: 1200px) {
+            .main-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <div class="logo">
+                <div class="logo-icon">P</div>
+                <div class="logo-text">
+                    <span class="peregrine">Peregrine</span> License Agent
+                </div>
+            </div>
+            <div class="powered-by">
+                AI-Powered Intelligence<br>
+                Law Enforcement Platform
+            </div>
+        </div>
+
+        <!-- Main Grid -->
+        <div class="main-grid">
+            <!-- Input Panel -->
+            <div class="input-panel">
+                <div class="panel-title">Search Parameters</div>
+                
+                <!-- Recent Searches Dropdown -->
+                <div class="recent-searches">
+                    <div class="recent-searches-label">Quick Search Examples</div>
+                    <select class="examples-dropdown" id="exampleSelect">
+                        <option value="">Select a recent case...</option>
+                        <option value="example1">Hit & Run - Market St (White Honda, ABC1***)</option>
+                        <option value="example2">Armed Robbery - Downtown (Black SUV, XYZ5***)</option>
+                        <option value="example3">Traffic Violation - Mission District (Silver Civic, DEF8***)</option>
+                        <option value="example4">Stolen Vehicle - Bay Area (Red Truck, GHI2***)</option>
+                    </select>
+                </div>
+                
+                <form id="searchForm">
+                    <div class="form-group">
+                        <label>License Plate <span class="required">*</span></label>
+                        <input 
+                            type="text" 
+                            id="licensePlate" 
+                            class="license-plate-input"
+                            placeholder="ABC1***"
+                            maxlength="8"
+                            required
+                        >
+                        <div class="input-hint">Use * for unknown characters (e.g., ABC1***)</div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Vehicle Color</label>
+                        <select id="color">
+                            <option value="">Select Color</option>
+                            <option value="white">White</option>
+                            <option value="black">Black</option>
+                            <option value="silver">Silver</option>
+                            <option value="gray">Gray</option>
+                            <option value="red">Red</option>
+                            <option value="blue">Blue</option>
+                            <option value="green">Green</option>
+                            <option value="yellow">Yellow</option>
+                            <option value="other">Other</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Vehicle Make</label>
+                        <select id="make">
+                            <option value="">Select Make</option>
+                            <option value="honda">Honda</option>
+                            <option value="toyota">Toyota</option>
+                            <option value="ford">Ford</option>
+                            <option value="chevrolet">Chevrolet</option>
+                            <option value="nissan">Nissan</option>
+                            <option value="bmw">BMW</option>
+                            <option value="mercedes">Mercedes-Benz</option>
+                            <option value="other">Other</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Vehicle Model</label>
+                        <input 
+                            type="text" 
+                            id="model" 
+                            placeholder="Civic, Accord, etc."
+                        >
+                    </div>
+
+                    <div class="form-group">
+                        <label>Vehicle Type</label>
+                        <select id="type">
+                            <option value="">Select Type</option>
+                            <option value="sedan">Sedan</option>
+                            <option value="suv">SUV</option>
+                            <option value="truck">Truck</option>
+                            <option value="van">Van</option>
+                            <option value="coupe">Coupe</option>
+                            <option value="hatchback">Hatchback</option>
+                            <option value="motorcycle">Motorcycle</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Last Seen Address</label>
+                        <input 
+                            type="text" 
+                            id="address" 
+                            placeholder="123 Main St, San Francisco, CA"
+                        >
+                    </div>
+
+                    <div class="form-group">
+                        <label>Supporting Evidence (Optional)</label>
+                        <div class="file-upload">
+                            <input type="file" id="imageUpload" accept="image/*">
+                            <label for="imageUpload" class="file-upload-btn">
+                                📷 Upload Image
+                            </label>
+                        </div>
+                        <div class="input-hint">Body cam, dash cam, or witness photo</div>
+                    </div>
+
+                    <button type="submit" class="search-btn">🚀 Run Agent</button>
+                </form>
+            </div>
+
+            <!-- Status Panel (Shows during search) -->
+            <div class="status-panel" id="statusPanel">
+                <div class="searching-animation">
+                    <div class="spinner"></div>
+                    <div class="status-text">🤖 Agent Running</div>
+                    <div class="status-subtext">Processing intelligence across integrated systems...</div>
+                </div>
+                
+                <!-- Agent Thinking Steps -->
+                <div class="agent-thinking" id="agentThinking">
+                    <div class="thinking-step" style="animation-delay: 0.2s">
+                        <div class="thinking-icon">🔍</div>
+                        <div class="thinking-text">Analyzing partial plate <strong>ABC1***</strong> with provided vehicle description...</div>
+                    </div>
+                    <div class="thinking-step" style="animation-delay: 0.8s">
+                        <div class="thinking-icon">📊</div>
+                        <div class="thinking-text">Cross-referencing <strong>5 integrated data sources</strong> (ALPR, RMS, 911 Calls, Body Cams, Dispatch)...</div>
+                    </div>
+                    <div class="thinking-step" style="animation-delay: 1.4s">
+                        <div class="thinking-icon">🎯</div>
+                        <div class="thinking-text">Filtering <strong>847 potential matches</strong> by location, time, and vehicle characteristics...</div>
+                    </div>
+                    <div class="thinking-step" style="animation-delay: 2.0s">
+                        <div class="thinking-icon">🧠</div>
+                        <div class="thinking-text">Computing confidence scores and generating intelligence analysis...</div>
+                    </div>
+                    <div class="thinking-step" style="animation-delay: 2.6s">
+                        <div class="thinking-icon">✅</div>
+                        <div class="thinking-text">Ranking <strong>top 5 leads</strong> with actionable recommendations...</div>
+                    </div>
+                </div>
+                
+                <div class="data-sources">
+                    <div class="data-source-item" data-source="bodycam">
+                        <span class="data-source-icon">🎥</span>
+                        <span class="data-source-text">Body Cam Footage</span>
+                    </div>
+                    <div class="data-source-item" data-source="911">
+                        <span class="data-source-icon">📞</span>
+                        <span class="data-source-text">911 Call Records</span>
+                    </div>
+                    <div class="data-source-item" data-source="rms">
+                        <span class="data-source-icon">📋</span>
+                        <span class="data-source-text">RMS Documentation</span>
+                    </div>
+                    <div class="data-source-item" data-source="alpr">
+                        <span class="data-source-icon">📡</span>
+                        <span class="data-source-text">License Plate Readers</span>
+                    </div>
+                    <div class="data-source-item" data-source="dispatch">
+                        <span class="data-source-icon">🚔</span>
+                        <span class="data-source-text">Dispatch Logs</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Results Panel -->
+            <div class="results-panel" id="resultsPanel">
+                <div class="results-header">
+                    <div class="results-title">Intelligence Matches</div>
+                    <div class="results-count">5 potential leads identified</div>
+                </div>
+
+                <div class="match-cards" id="matchCards">
+                    <!-- Results will be inserted here by JavaScript -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Example cases data
+        const exampleCases = {
+            example1: {
+                licensePlate: 'ABC1***',
+                color: 'white',
+                make: 'honda',
+                model: 'Civic',
+                type: 'sedan',
+                address: 'Market St & 5th Ave, San Francisco, CA'
+            },
+            example2: {
+                licensePlate: 'XYZ5***',
+                color: 'black',
+                make: 'ford',
+                model: 'Explorer',
+                type: 'suv',
+                address: 'Downtown, San Francisco, CA'
+            },
+            example3: {
+                licensePlate: 'DEF8***',
+                color: 'silver',
+                make: 'honda',
+                model: 'Civic',
+                type: 'sedan',
+                address: 'Mission District, San Francisco, CA'
+            },
+            example4: {
+                licensePlate: 'GHI2***',
+                color: 'red',
+                make: 'ford',
+                model: 'F-150',
+                type: 'truck',
+                address: 'Bay Area, CA'
+            }
+        };
+
+        // Handle example selection
+        document.getElementById('exampleSelect').addEventListener('change', function(e) {
+            const exampleId = e.target.value;
+            if (exampleId && exampleCases[exampleId]) {
+                const example = exampleCases[exampleId];
+                document.getElementById('licensePlate').value = example.licensePlate;
+                document.getElementById('color').value = example.color;
+                document.getElementById('make').value = example.make;
+                document.getElementById('model').value = example.model;
+                document.getElementById('type').value = example.type;
+                document.getElementById('address').value = example.address;
+            }
+        });
+
+        // Mock data for demo purposes
+        const mockResults = [
+            {
+                plate: "ABC1234",
+                confidence: 95,
+                color: "White",
+                make: "Honda",
+                model: "Civic",
+                type: "Sedan",
+                lastSeen: "Market St & 5th Ave, 14 minutes ago",
+                explanation: "High-confidence match based on partial plate (4/4 digits match), vehicle description matches witness report (white Honda Civic), and automated license plate reader detected this vehicle 0.3 miles north of incident location 11 minutes after reported time. Vehicle registered to known traffic offender with 3 prior citations.",
+                sources: ["ALPR", "RMS", "911 Call"],
+                rank: 1
+            },
+            {
+                plate: "ABC1567",
+                confidence: 78,
+                color: "White",
+                make: "Honda",
+                model: "Accord",
+                type: "Sedan",
+                lastSeen: "Downtown Area, 28 minutes ago",
+                explanation: "Moderate-confidence match with 4/4 plate digits matching. Vehicle is white Honda sedan as described, though model differs (Accord vs Civic reported). Captured on traffic camera 1.2 miles from scene. No prior incidents on record but vehicle was flagged in 911 call 2 hours prior for erratic driving.",
+                sources: ["ALPR", "911 Call", "Traffic Cam"],
+                rank: 2
+            },
+            {
+                plate: "ABC1892",
+                confidence: 72,
+                color: "Silver",
+                make: "Honda",
+                model: "Civic",
+                type: "Sedan",
+                lastSeen: "Mission District, 45 minutes ago",
+                explanation: "Partial plate match (4/4 digits) with similar vehicle profile. Color discrepancy noted (silver vs white reported, possibly lighting conditions). Model matches exactly (Civic). Vehicle detected on body cam footage from responding unit 3 blocks from scene. Registered owner has clean record.",
+                sources: ["Body Cam", "ALPR", "RMS"],
+                rank: 3
+            },
+            {
+                plate: "ABC1003",
+                confidence: 65,
+                color: "White",
+                make: "Toyota",
+                model: "Corolla",
+                type: "Sedan",
+                lastSeen: "Financial District, 1 hour ago",
+                explanation: "Plate digits match partial input (4/4). Vehicle description partially aligns - white sedan confirmed, but make differs (Toyota vs Honda reported). Detected on parking enforcement camera. Vehicle was involved in minor fender-bender 6 months ago per RMS records. Owner resides 2 miles from incident location.",
+                sources: ["ALPR", "RMS"],
+                rank: 4
+            },
+            {
+                plate: "ABC1777",
+                confidence: 58,
+                color: "White",
+                make: "Honda",
+                model: "CR-V",
+                type: "SUV",
+                lastSeen: "Bay Area, 2 hours ago",
+                explanation: "Plate match on partial digits (4/4). Color and make align with witness description (white Honda). Vehicle type differs significantly (SUV vs Sedan). ALPR detection shows vehicle traveling in opposite direction from incident. Listed in dispatch logs for unrelated welfare check 3 weeks ago. Consider lower priority.",
+                sources: ["ALPR", "Dispatch"],
+                rank: 5
+            }
+        ];
+
+        // Form submission handler
+        document.getElementById('searchForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const licensePlate = document.getElementById('licensePlate').value;
+            
+            if (!licensePlate) {
+                alert('Please enter a license plate number');
+                return;
+            }
+
+            // Collect form data
+            const formData = {
+                licensePlate: licensePlate,
+                color: document.getElementById('color').value,
+                make: document.getElementById('make').value,
+                model: document.getElementById('model').value,
+                type: document.getElementById('type').value,
+                address: document.getElementById('address').value
+            };
+
+            // Update the first thinking step with actual plate
+            const firstThinkingStep = document.querySelector('.thinking-step:first-child .thinking-text');
+            firstThinkingStep.innerHTML = `Analyzing partial plate <strong>${licensePlate}</strong> with provided vehicle description...`;
+
+            // Show status panel
+            document.getElementById('statusPanel').classList.add('active');
+            document.getElementById('resultsPanel').classList.remove('active');
+
+            // Animate data sources
+            const sources = document.querySelectorAll('.data-source-item');
+            sources.forEach((source, index) => {
+                setTimeout(() => {
+                    source.classList.add('active');
+                }, index * 400);
+            });
+
+            try {
+                // Call N8N webhook
+                const response = await fetch('https://jado2003.app.n8n.cloud/webhook/peregrine-license-agent', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(formData)
+                });
+
+                const data = await response.json();
+
+                // Check for errors from N8N
+                if (data.error || !data.success) {
+                    document.getElementById('statusPanel').classList.remove('active');
+                    alert(`Agent Error: ${data.message || 'Unknown error occurred'}`);
+                    
+                    // Reset data source animations
+                    document.querySelectorAll('.data-source-item').forEach(item => {
+                        item.classList.remove('active');
+                    });
+                    return;
+                }
+
+                // Show results after animation completes
+                setTimeout(() => {
+                    displayResults(data.results);
+                }, 2500);
+
+            } catch (error) {
+                console.error('Error:', error);
+                alert('Error connecting to Peregrine intelligence system. Please try again.');
+                document.getElementById('statusPanel').classList.remove('active');
+                
+                // Reset data source animations
+                document.querySelectorAll('.data-source-item').forEach(item => {
+                    item.classList.remove('active');
+                });
+            }
+        });
+
+        function displayResults(results) {
+            document.getElementById('statusPanel').classList.remove('active');
+            document.getElementById('resultsPanel').classList.add('active');
+
+            const matchCards = document.getElementById('matchCards');
+            matchCards.innerHTML = '';
+
+            // Update results count
+            if (results && results.length > 0) {
+                document.querySelector('.results-count').textContent = 
+                    `${results.length} potential lead${results.length !== 1 ? 's' : ''} identified`;
+
+                results.forEach(result => {
+                    const card = createMatchCard(result);
+                    matchCards.appendChild(card);
+                });
+            } else {
+                matchCards.innerHTML = '<div style="padding: 40px; text-align: center; color: #999;">No matches found. Try adjusting your search parameters.</div>';
+            }
+
+            // Reset data source animations
+            document.querySelectorAll('.data-source-item').forEach(item => {
+                item.classList.remove('active');
+            });
+        }
+
+        function createMatchCard(result) {
+            const card = document.createElement('div');
+            card.className = 'match-card';
+
+            const confidenceClass = result.confidence >= 85 ? 'high' : result.confidence >= 70 ? 'medium' : '';
+
+            card.innerHTML = `
+                <div class="match-header">
+                    <div class="match-plate">${result.plate}</div>
+                    <div class="confidence-badge ${confidenceClass}">${result.confidence}% Match</div>
+                </div>
+
+                <div class="vehicle-details">
+                    <div class="vehicle-detail">🎨 ${result.color}</div>
+                    <div class="vehicle-detail">🚗 ${result.make} ${result.model}</div>
+                    <div class="vehicle-detail">📦 ${result.type}</div>
+                </div>
+
+                <div class="last-seen">
+                    <div class="location-dot"></div>
+                    <span>Last seen: ${result.lastSeen}</span>
+                </div>
+
+                <div class="ai-explanation">
+                    <div class="ai-label">AI Analysis</div>
+                    <div class="ai-text">${result.explanation}</div>
+                </div>
+
+                <div class="match-footer">
+                    <div class="data-badges">
+                        ${result.sources.map(source => `<span class="badge">${source}</span>`).join('')}
+                    </div>
+                    <div class="action-buttons">
+                        <button class="action-btn flag" onclick="handleAction('flag', '${result.plate}')">🚩 Flag</button>
+                        <button class="action-btn confirm" onclick="handleAction('confirm', '${result.plate}')">✅ Confirm</button>
+                        <button class="action-btn decline" onclick="handleAction('decline', '${result.plate}')">❌ Decline</button>
+                    </div>
+                </div>
+            `;
+
+            return card;
+        }
+
+        function handleAction(action, plate) {
+            const messages = {
+                flag: `Flagged ${plate} for manual review`,
+                confirm: `Confirmed match for ${plate} - Case updated`,
+                decline: `Declined lead ${plate} - Removed from active matches`
+            };
+            
+            alert(messages[action]);
+        }
+
+        // File upload handler
+        document.getElementById('imageUpload').addEventListener('change', function(e) {
+            const fileName = e.target.files[0]?.name;
+            if (fileName) {
+                const label = document.querySelector('.file-upload-btn');
+                label.textContent = `✓ ${fileName}`;
+                label.style.borderColor = '#2ed573';
+                label.style.color = '#2ed573';
+            }
+        });
+    </script>
+</body>
+</html>
