@@ -307,6 +307,48 @@
             margin-top: 20px;
         }
 
+        .data-sources-checking {
+            margin-top: 24px;
+            padding-top: 24px;
+            border-top: 1px solid #e2e8f0;
+        }
+
+        .data-source-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 16px;
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 6px;
+            margin-bottom: 10px;
+            opacity: 0.5;
+            transition: all 0.4s ease;
+        }
+
+        .data-source-item.active {
+            opacity: 1;
+            background: rgba(30, 64, 175, 0.08);
+            border-color: rgba(30, 64, 175, 0.3);
+        }
+
+        .data-source-icon {
+            font-size: 18px;
+            width: 24px;
+            text-align: center;
+        }
+
+        .data-source-text {
+            flex: 1;
+            font-size: 13px;
+            color: #475569;
+            font-weight: 500;
+        }
+
+        .data-source-item.active .data-source-text {
+            color: #1e40af;
+        }
+
         .step-item {
             display: flex;
             align-items: flex-start;
@@ -954,6 +996,28 @@
                 <div class="agent-title">Agent Processing</div>
                 <div class="agent-subtitle">Analyzing intelligence across integrated systems...</div>
                 <div class="processing-steps" id="processingSteps"></div>
+                <div class="data-sources-checking">
+                    <div class="data-source-item" id="sourceBodyCam">
+                        <span class="data-source-icon">🎥</span>
+                        <span class="data-source-text">Body Cam Footage</span>
+                    </div>
+                    <div class="data-source-item" id="source911">
+                        <span class="data-source-icon">📞</span>
+                        <span class="data-source-text">911 Call Records</span>
+                    </div>
+                    <div class="data-source-item" id="sourceRMS">
+                        <span class="data-source-icon">📋</span>
+                        <span class="data-source-text">RMS Documentation</span>
+                    </div>
+                    <div class="data-source-item" id="sourceALPR">
+                        <span class="data-source-icon">📡</span>
+                        <span class="data-source-text">License Plate Readers</span>
+                    </div>
+                    <div class="data-source-item" id="sourceDispatch">
+                        <span class="data-source-icon">🚔</span>
+                        <span class="data-source-text">Dispatch Logs</span>
+                    </div>
+                </div>
             `;
 
             const stepsContainer = document.getElementById('processingSteps');
@@ -968,6 +1032,24 @@
                     `;
                     stepsContainer.appendChild(stepDiv);
                 }, step.delay);
+            });
+
+            // Animate data sources
+            const dataSources = [
+                { id: 'sourceBodyCam', delay: 400 },
+                { id: 'source911', delay: 800 },
+                { id: 'sourceRMS', delay: 1200 },
+                { id: 'sourceALPR', delay: 1600 },
+                { id: 'sourceDispatch', delay: 2000 }
+            ];
+
+            dataSources.forEach(source => {
+                setTimeout(() => {
+                    const element = document.getElementById(source.id);
+                    if (element) {
+                        element.classList.add('active');
+                    }
+                }, source.delay);
             });
 
             try {
