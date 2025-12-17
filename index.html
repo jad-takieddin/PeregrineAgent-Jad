@@ -308,9 +308,7 @@
         }
 
         .data-sources-checking {
-            margin-top: 16px;
-            padding-top: 16px;
-            border-top: 1px solid #e2e8f0;
+            margin-top: 20px;
         }
 
         .data-source-item {
@@ -397,6 +395,10 @@
             justify-content: space-between;
             align-items: center;
             margin-bottom: 24px;
+            padding: 20px;
+            background: #f8fafc;
+            border: 2px solid #1e40af;
+            border-radius: 8px;
         }
 
         .results-title {
@@ -406,12 +408,13 @@
         }
 
         .results-count {
-            font-size: 13px;
-            color: #64748b;
-            background: #f8fafc;
-            padding: 6px 12px;
+            font-size: 14px;
+            font-weight: 600;
+            color: #1e40af;
+            background: #ffffff;
+            padding: 8px 16px;
             border-radius: 4px;
-            border: 1px solid #e2e8f0;
+            border: 2px solid #1e40af;
         }
 
         .match-cards {
@@ -445,12 +448,31 @@
             border-bottom: 1px solid #e2e8f0;
         }
 
+        .match-plate-container {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .match-plate-label {
+            font-size: 10px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: #64748b;
+            font-weight: 600;
+        }
+
         .match-plate {
             font-family: 'Courier New', monospace;
             font-size: 22px;
             font-weight: 700;
             letter-spacing: 3px;
-            color: #1e40af;
+            color: #ffffff;
+            background: #1e40af;
+            padding: 8px 16px;
+            border-radius: 4px;
+            display: inline-block;
+            border: 2px solid #0f172a;
         }
 
         .confidence-badge {
@@ -595,39 +617,42 @@
         }
 
         .action-btn.flag {
-            background: #eab308;
-            color: #ffffff;
-            box-shadow: 0 1px 3px rgba(234, 179, 8, 0.3);
+            background: #fbbf24;
+            color: #78350f;
+            box-shadow: 0 1px 3px rgba(251, 191, 36, 0.3);
         }
 
         .action-btn.flag:hover {
-            background: #ca8a04;
+            background: #f59e0b;
+            color: #78350f;
             transform: translateY(-1px);
-            box-shadow: 0 2px 6px rgba(234, 179, 8, 0.4);
+            box-shadow: 0 2px 6px rgba(251, 191, 36, 0.4);
         }
 
         .action-btn.confirm {
-            background: #10b981;
-            color: #ffffff;
-            box-shadow: 0 1px 3px rgba(16, 185, 129, 0.3);
+            background: #34d399;
+            color: #064e3b;
+            box-shadow: 0 1px 3px rgba(52, 211, 153, 0.3);
         }
 
         .action-btn.confirm:hover {
-            background: #059669;
+            background: #10b981;
+            color: #064e3b;
             transform: translateY(-1px);
-            box-shadow: 0 2px 6px rgba(16, 185, 129, 0.4);
+            box-shadow: 0 2px 6px rgba(52, 211, 153, 0.4);
         }
 
         .action-btn.decline {
-            background: #ef4444;
-            color: #ffffff;
-            box-shadow: 0 1px 3px rgba(239, 68, 68, 0.3);
+            background: #f87171;
+            color: #7f1d1d;
+            box-shadow: 0 1px 3px rgba(248, 113, 113, 0.3);
         }
 
         .action-btn.decline:hover {
-            background: #dc2626;
+            background: #ef4444;
+            color: #7f1d1d;
             transform: translateY(-1px);
-            box-shadow: 0 2px 6px rgba(239, 68, 68, 0.4);
+            box-shadow: 0 2px 6px rgba(248, 113, 113, 0.4);
         }
 
         /* Custom Notifications */
@@ -669,6 +694,10 @@
             border-left: 3px solid #eab308;
         }
 
+        .notification.decline {
+            border-left: 3px solid #ef4444;
+        }
+
         .notification-header {
             display: flex;
             align-items: center;
@@ -699,6 +728,11 @@
         .notification.warning .notification-icon {
             background: rgba(234, 179, 8, 0.2);
             color: #eab308;
+        }
+
+        .notification.decline .notification-icon {
+            background: rgba(239, 68, 68, 0.2);
+            color: #ef4444;
         }
 
         .notification-title {
@@ -931,7 +965,8 @@
             const icons = {
                 error: '✕',
                 success: '✓',
-                warning: '⚠'
+                warning: '⚠',
+                decline: '✕'
             };
 
             notification.innerHTML = `
@@ -1147,7 +1182,10 @@
 
             card.innerHTML = `
                 <div class="match-header">
-                    <div class="match-plate">${result.plate}</div>
+                    <div class="match-plate-container">
+                        <div class="match-plate-label">License Plate</div>
+                        <div class="match-plate">${result.plate}</div>
+                    </div>
                     <div class="confidence-badge ${confidenceClass}">${result.confidence}% Match</div>
                 </div>
 
@@ -1217,7 +1255,7 @@
                 decline: {
                     title: 'Lead Declined',
                     message: `${plate} removed from active investigation.`,
-                    type: 'warning'
+                    type: 'decline'
                 }
             };
             
